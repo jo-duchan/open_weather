@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:open_weather/repositories/weather_repository.dart';
+import 'package:open_weather/services/weather_api_services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
