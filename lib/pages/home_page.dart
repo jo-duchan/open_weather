@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:open_weather/providers/weather/weather_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:open_weather/repositories/weather_repository.dart';
 import 'package:open_weather/services/weather_api_services.dart';

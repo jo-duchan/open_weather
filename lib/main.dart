@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:open_weather/pages/home_page.dart';
+import 'package:open_weather/providers/weather/weather_provider.dart';
+import 'package:open_weather/repositories/weather_repository.dart';
+import 'package:open_weather/services/weather_api_services.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 void main() async {
   await dotenv.load(fileName: '.env');
@@ -12,13 +17,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Weather App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        Provider<WeatherRepository>(
+          create: (context) => WeatherRepository(
+            weatherApiServices: WeatherApiServices(
+              httpClient: http.Client(),
+            ),
+          ),
+        ),
+        ChangeNotifierProvider<WeatherProvider>(
+          create: (context) => WeatherProvider(
+            weatherRepository: context.read<WeatherRepository>(),
+          ),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Weather App',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const HomePage(),
       ),
-      home: const HomePage(),
     );
   }
 }

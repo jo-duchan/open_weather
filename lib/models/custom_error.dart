@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
-class CoustomError extends Equatable {
+class CustomError extends Equatable {
   final String errMsg;
 
-  CoustomError({
+  CustomError({
     this.errMsg = '',
   });
 

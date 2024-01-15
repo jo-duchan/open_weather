@@ -25,13 +25,11 @@ class WeatherRepository {
         country: directGeocoding.country,
       );
 
-      print('weather: $weather');
-
       return weather;
     } on WeatherException catch (e) {
-      throw CoustomError(errMsg: e.message);
+      throw CustomError(errMsg: e.message);
     } catch (e) {
-      throw CoustomError(errMsg: e.toString());
+      throw CustomError(errMsg: e.toString());
     }
   }
 }
