@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:open_weather/pages/home_page.dart';
-import 'package:open_weather/providers/weather/weather_provider.dart';
+import 'package:open_weather/providers/providers.dart';
 import 'package:open_weather/repositories/weather_repository.dart';
 import 'package:open_weather/services/weather_api_services.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +30,9 @@ class MyApp extends StatelessWidget {
           create: (context) => WeatherProvider(
             weatherRepository: context.read<WeatherRepository>(),
           ),
+        ),
+        ChangeNotifierProvider<TempSettingsProvider>(
+          create: (context) => TempSettingsProvider(),
         ),
       ],
       child: MaterialApp(
