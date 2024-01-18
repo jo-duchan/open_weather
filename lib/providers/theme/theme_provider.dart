@@ -1,21 +1,23 @@
 import 'package:equatable/equatable.dart';
 import 'package:open_weather/constants/constants.dart';
 import 'package:open_weather/providers/providers.dart';
+import 'package:state_notifier/state_notifier.dart';
 
 part 'theme_state.dart';
 
-class ThemeProvider {
-  final WeatherProvider wp;
+class ThemeProvider extends StateNotifier<ThemeState> with LocatorMixin {
+  ThemeProvider() : super(ThemeState.initial());
 
-  ThemeProvider({
-    required this.wp,
-  });
+  @override
+  void update(Locator watch) {
+    final wp = watch<WeatherState>().weather;
 
-  ThemeState get state {
-    if (wp.state.weather.temp > kWarmOrNot) {
-      return ThemeState();
+    if (wp.temp > kWarmOrNot) {
+      state = state.copyWith(appTheme: AppTheme.light);
     } else {
-      return ThemeState(appTheme: AppTheme.dark);
+      state = state.copyWith(appTheme: AppTheme.dark);
     }
+
+    super.update(watch);
   }
 }
